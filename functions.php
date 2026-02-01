@@ -7,6 +7,20 @@ function add_Styles() {
 }
 add_action('wp_enqueue_scripts', 'add_Styles');
 
+
+// Change Post Excerpt Length
+function custom_excerpt_length($length) {
+    return 30; // Change this number to set your desired excerpt length.
+}
+add_filter('excerpt_length', 'custom_excerpt_length', 999);
+
+function all_settings_link() {
+    add_options_page(__('All Settings'), __('All Settings'), 'administrator', 'options.php');
+   }
+   add_action('admin_menu', 'all_settings_link');
+   
+if (!defined('WP_POST_REVISIONS')) define('WP_POST_REVISIONS', 5);
+
 // Register a new sidebar simply named 'sidebar'
 function add_widget_support() {
                register_sidebar( array(
@@ -110,15 +124,47 @@ function wpreboot_theme_setup() {
   // Enable featured image (post thumbnail) support
 	add_theme_support( 'post-thumbnails' );
   // Default post thumbnail size (width, height, crop)
-	set_post_thumbnail_size( 250, 270, true );
+	set_post_thumbnail_size( 500, 360, true );
 
 	// This theme uses its own gallery styles.
 	add_filter( 'use_default_gallery_style', '__return_false' );
 
 	// Indicate widget sidebars can use selective refresh in the Customizer.
 	add_theme_support( 'customize-selective-refresh-widgets' );
-  add_image_size( 'wpreboot-large', 1024, 768, true );
-  add_image_size( 'wpreboot-medium', 600, 400, true );
+	add_image_size( 'wpreboot-large', 1024, 768, true );
+	add_image_size( 'wpreboot-medium', 600, 400, true );
+  
+  
+  // Set up the WordPress core custom background feature.
+	add_theme_support(
+		'custom-background',
+		apply_filters(
+			'wpreboot_custom_background_args',
+			array(
+				'default-color' => 'ffffff',
+				'default-image' => '',
+			)
+		)
+	);
+
+	// Add theme support for selective refresh for widgets.
+	add_theme_support( 'customize-selective-refresh-widgets' );
+
+	/**
+	 * Add support for core custom logo.
+	 *
+	 * @link https://codex.wordpress.org/Theme_Logo
+	 */
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 250,
+			'width'       => 250,
+			'flex-width'  => true,
+			'flex-height' => true,
+		)
+	);
+  
 }
 add_action( 'after_setup_theme', 'wpreboot_theme_setup' );
 // Usage:
