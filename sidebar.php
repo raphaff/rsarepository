@@ -1,5 +1,7 @@
-<?php if ( is_active_sidebar( 'sidebar' ) ) : ?>
-  <aside id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
+  <div class="col-md-4">
+		<div class="position-sticky">
+		<?php if ( is_active_sidebar( 'sidebar' ) ) : ?>
     <?php dynamic_sidebar( 'sidebar' ); ?>
-  </aside>
 <?php endif; ?>
+  </div>
+</div>

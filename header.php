@@ -4,7 +4,6 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php bloginfo('name'); ?> &raquo; <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
-<!--     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
    <?php wp_head(); ?>
   </head>
@@ -15,7 +14,8 @@
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
+            
+			<!--  <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item me-3">
                         <a href="#home" class="nav-link">Home</a>
@@ -35,22 +35,18 @@
                     <li class="nav-item">
                         <a href="#share" class="nav-link">Share</a>
                     </li>
-                </ul>
-            </div>
+                </ul> </div> -->
+
+			 <?php wp_nav_menu( array(
+    'theme_location'  => 'primary',
+    'depth'           => 2, // 1 = no dropdowns, 2 = with dropdowns.
+    'container'       => 'div',
+    'container_class' => 'collapse navbar-collapse',
+    'container_id'    => 'navbarCollapse',
+    'menu_class'      => 'navbar-nav ms-auto',
+    'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+    'walker'          => new WP_Bootstrap_Navwalker(),
+) ); ?>
+			
         </div>
     </nav>
-
-<!--      <?php // wp_nav_menu( array( 'header-menu' => 'header-menu' ) );  ?> -->
-
-     <?php
-// Bootstrap 5 Nav Walker
-wp_nav_menu(array(
-  'theme_location' => 'main-menu',
-  'container'      => false,
-  'menu_class'     => '',
-  'fallback_cb'    => '__return_false',
-  'items_wrap'     => '<ul id="bootscore-navbar" class="navbar-nav ' . esc_attr(apply_filters('bootscore/class/header/navbar-nav', 'ms-auto')) . ' %2$s">%3$s</ul>',
-  'depth'          => 2,
-  'walker'         => new bootstrap_5_wp_nav_menu_walker()
-));
-?>

@@ -1,16 +1,16 @@
 <?php get_header(); ?>
-
-<div class="container">
-  
+<div class="container-fluid bg-dark p-2">
+       <h2 class="text-white display-4 text-center"><?php the_title(); ?></h2>
+</div>
+<div class="container mt-3">
+	<div class="row g-5 justify-content-center">
+		<div class="col-md-8">
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-
-          <h2><?php the_title(); ?></h2>
-          By: <?php the_author(); ?>
-          <p> <?php the_content(); ?> </p>
-
+       <?php the_content(); ?>
 <?php endwhile; else : ?>
-        <p>Sorry, no page content was found!</p>
+        <p>Sorry, no post was found!</p>
 <?php endif; ?>
-  <?php get_sidebar(); ?>
+		</div> <!-- page.php.page -->
+  </div>
 </div>
 <?php get_footer(); ?>

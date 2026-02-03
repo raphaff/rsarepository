@@ -26,10 +26,10 @@ function add_widget_support() {
                register_sidebar( array(
                                'name'          => 'Sidebar',
                                'id'            => 'sidebar',
-                               'before_widget' => '<div class="container">',
+                               'before_widget' => '<div class="container widget-container">',
                                'after_widget'  => '</div>',
-                               'before_title'  => '<h2 class="badge bg-dark">',
-                               'after_title'   => '</h2>',
+                               'before_title'  => '<h3>',
+                               'after_title'   => '</h3>',
                ) );
 }
 // Hook the widget initiation and run our function
@@ -124,13 +124,10 @@ function wpreboot_theme_setup() {
   // Enable featured image (post thumbnail) support
 	add_theme_support( 'post-thumbnails' );
   // Default post thumbnail size (width, height, crop)
-	set_post_thumbnail_size( 500, 360, true );
+	set_post_thumbnail_size( 300, 240, true );
 
 	// This theme uses its own gallery styles.
 	add_filter( 'use_default_gallery_style', '__return_false' );
-
-	// Indicate widget sidebars can use selective refresh in the Customizer.
-	add_theme_support( 'customize-selective-refresh-widgets' );
 	add_image_size( 'wpreboot-large', 1024, 768, true );
 	add_image_size( 'wpreboot-medium', 600, 400, true );
   
@@ -170,3 +167,12 @@ add_action( 'after_setup_theme', 'wpreboot_theme_setup' );
 // Usage:
 // - In templates: the_post_thumbnail(); or the_post_thumbnail('wpreboot-medium');
 // - To get an image HTML: echo get_the_post_thumbnail( get_the_ID(), 'wpreboot-large' );
+
+add_filter( 'nav_menu_link_attributes', 'bootstrap5_dropdown_fix' );
+function bootstrap5_dropdown_fix( $atts ) {
+     if ( array_key_exists( 'data-toggle', $atts ) ) {
+         unset( $atts['data-toggle'] );
+         $atts['data-bs-toggle'] = 'dropdown';
+     }
+     return $atts;
+}

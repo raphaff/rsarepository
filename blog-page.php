@@ -1,3 +1,5 @@
+<?php /* Template Name: Blog-page.php */ ?>
+
 <?php get_header(); ?>
 <div class="container mt-3">
 	<div class="row g-5">
@@ -11,7 +13,7 @@
 <?php endwhile; else : ?>
         <p>Sorry, no posts were found!</p>
 <?php endif; ?>
-		</div> <!-- index.php.page -->
+		</div> <!-- Blog-page.php.page -->
 	<?php get_sidebar(); ?>
   </div>
 </div>
